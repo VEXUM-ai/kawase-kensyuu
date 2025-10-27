@@ -3,7 +3,7 @@ const CONFIG = {
     // GASのウェブアプリURLをここに設定してください
     GAS_URL: 'https://script.google.com/macros/s/AKfycbxeOB-T37y8gGwLzd6XjvTcWoWbbtNaZkj2mbXY_CnV6IlEa3CQTPuJFRK5V8ChYSBdAQ/exec',
     USER_ID: 'user01',
-    APP_URL: 'https://kawase-syun.github.io/-APP/'
+    APP_URL: 'https://vexum-ai.github.io/kawase-kensyuu/'
 };
 
 // グローバル状態
