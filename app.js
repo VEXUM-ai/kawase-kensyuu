@@ -1,7 +1,7 @@
 // 設定
 const CONFIG = {
     // GASのウェブアプリURLをここに設定してください
-    GAS_URL: 'https://script.google.com/macros/s/AKfycbyRt6J9fNpX2K3bs8t8ZUN0w5rObwLhXcTA_pS5lx2142o8wiRT3AN6npdHZ-SiFrnOxg/exec',
+    GAS_URL: 'https://script.google.com/macros/s/AKfycbxeOB-T37y8gGwLzd6XjvTcWoWbbtNaZkj2mbXY_CnV6IlEa3CQTPuJFRK5V8ChYSBdAQ/exec',
     USER_ID: 'user01',
     APP_URL: 'https://kawase-syun.github.io/-APP/'
 };

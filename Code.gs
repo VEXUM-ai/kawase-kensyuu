@@ -49,8 +49,25 @@ function doGet(e) {
  */
 function doPost(e) {
   try {
-    const params = JSON.parse(e.postData.contents);
+    // Content-Typeの確認とパラメータ解析
+    let params;
+
+    if (e.postData && e.postData.contents) {
+      try {
+        params = JSON.parse(e.postData.contents);
+      } catch (parseError) {
+        Logger.log('JSON解析エラー: ' + parseError.toString());
+        return createJsonResponse(false, 'リクエストデータが不正です');
+      }
+    } else if (e.parameter) {
+      params = e.parameter;
+    } else {
+      Logger.log('リクエストデータなし');
+      return createJsonResponse(false, 'リクエストデータが不正です');
+    }
+
     const action = params.action;
+    Logger.log('アクション: ' + action);
 
     if (action === 'checkin') {
       return checkin(params.userId);
@@ -63,6 +80,7 @@ function doPost(e) {
     return createJsonResponse(false, '不明なアクションです');
   } catch (error) {
     Logger.log('POSTエラー: ' + error.toString());
+    Logger.log('POSTデータ: ' + JSON.stringify(e));
     return createJsonResponse(false, 'エラーが発生しました: ' + error.toString());
   }
 }
@@ -98,6 +116,7 @@ function getTodayRecord(userId) {
   const today = Utilities.formatDate(new Date(), 'JST', 'yyyy/MM/dd');
 
   for (let i = data.length - 1; i >= 1; i--) {
+    if (!data[i][0]) continue; // 空行をスキップ
     const rowDate = Utilities.formatDate(new Date(data[i][0]), 'JST', 'yyyy/MM/dd');
     if (rowDate === today && data[i][1] === userId) {
       return createJsonResponse(true, '本日の記録を取得しました', {
@@ -239,6 +258,7 @@ function findTodayRecord(sheet, userId, today) {
   const data = sheet.getDataRange().getValues();
 
   for (let i = data.length - 1; i >= 1; i--) {
+    if (!data[i][0]) continue; // 空行をスキップ
     const rowDate = Utilities.formatDate(new Date(data[i][0]), 'JST', 'yyyy/MM/dd');
     if (rowDate === today && data[i][1] === userId) {
       return {
