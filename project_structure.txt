@@ -1,0 +1,32 @@
+出退勤打刻アプリ - ファイル構成
+================================
+
+研修課題/
+│
+├── 📱 フロントエンド（Webアプリ）
+│   ├── index.html              メインHTML
+│   ├── styles.css              スタイルシート
+│   ├── app.js                  アプリケーションロジック
+│   ├── manifest.json           PWAマニフェスト
+│   └── sw.js                   Service Worker
+│
+├── 🖼️ アイコン
+│   ├── icon.svg                SVGアイコン（ソース）
+│   ├── icon-192.png            PWAアイコン (192x192)
+│   ├── icon-512.png            PWAアイコン (512x512)
+│   └── create-icons.html       アイコン生成ツール
+│
+├── 🔧 バックエンド
+│   └── Code.gs                 Google Apps Script
+│
+├── 📚 ドキュメント
+│   ├── README.md               プロジェクト概要
+│   ├── SETUP_GUIDE.md          詳細セットアップ手順
+│   ├── QUICKSTART.md           クイックスタート
+│   ├── NEXT_STEPS.md           次のステップ
+│   └── PROJECT_SUMMARY.md      プロジェクトサマリー
+│
+└── ⚙️ 設定
+    └── .gitignore              Git除外設定
+
+合計ファイル数: 14

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>アイコン生成 - ダウンロードしてください</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        .icon-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        canvas {
+            border: 2px solid #667eea;
+            margin: 20px 0;
+            display: block;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .instruction {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        .success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            color: #155724;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 PWAアイコン生成ツール</h1>
+
+        <div class="instruction">
+            <strong>⚠️ 重要:</strong> 各ボタンをクリックしてアイコンをダウンロードしてください。<br>
+            ダウンロードしたファイルを <code>C:\Users\kasyu\Desktop\研修課題</code> フォルダに保存してください。
+        </div>
+
+        <div class="icon-section">
+            <h2>192x192 アイコン</h2>
+            <canvas id="canvas192" width="192" height="192"></canvas>
+            <button onclick="downloadIcon('canvas192', 'icon-192.png')">📥 icon-192.png をダウンロード</button>
+        </div>
+
+        <div class="icon-section">
+            <h2>512x512 アイコン</h2>
+            <canvas id="canvas512" width="512" height="512"></canvas>
+            <button onclick="downloadIcon('canvas512', 'icon-512.png')">📥 icon-512.png をダウンロード</button>
+        </div>
+
+        <div class="success" id="success">
+            ✅ ダウンロード完了！ファイルをプロジェクトフォルダに移動してください。
+        </div>
+
+        <div class="instruction" style="margin-top: 40px;">
+            <strong>次の手順:</strong><br>
+            1. 両方のファイルをダウンロード<br>
+            2. <code>C:\Users\kasyu\Desktop\研修課題</code> に保存<br>
+            3. Git でコミット＆プッシュ
+        </div>
+    </div>
+
+    <script>
+        function createIcon(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+
+            // グラデーション背景
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+
+            // 白い円（文字盤）
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, size * 0.35, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 時計の針
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = size * 0.05;
+            ctx.lineCap = 'round';
+
+            // 短針（9時方向）
+            ctx.beginPath();
+            ctx.moveTo(size / 2, size / 2);
+            ctx.lineTo(size / 2, size * 0.25);
+            ctx.stroke();
+
+            // 長針（3時方向）
+            ctx.beginPath();
+            ctx.moveTo(size / 2, size / 2);
+            ctx.lineTo(size * 0.65, size / 2);
+            ctx.stroke();
+
+            // 中心の円
+            ctx.fillStyle = '#667eea';
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, size * 0.03, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 角を丸くするためのマスク
+            ctx.globalCompositeOperation = 'destination-in';
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, size * 0.15);
+            ctx.fill();
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                document.getElementById('success').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('success').style.display = 'none';
+                }, 3000);
+            }, 'image/png');
+        }
+
+        // ページ読み込み時にアイコンを生成
+        window.onload = function() {
+            createIcon('canvas192');
+            createIcon('canvas512');
+        };
+    </script>
+</body>
+</html>
