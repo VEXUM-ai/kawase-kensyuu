@@ -1,0 +1,19 @@
+# Google Apps Script
+.clasp.json
+.clasprc.json
+
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

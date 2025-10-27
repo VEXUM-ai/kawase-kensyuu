@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="出退勤打刻アプリ">
+    <meta name="theme-color" content="#4CAF50">
+    <title>出退勤打刻アプリ</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🕐 出退勤打刻</h1>
+            <div class="user-info">
+                <p class="user-name" id="userName">読み込み中...</p>
+                <p class="current-time" id="currentTime"></p>
+            </div>
+        </header>
+
+        <main>
+            <div class="status-card" id="statusCard">
+                <p class="status-text" id="statusText">準備中...</p>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-checkin" id="checkinBtn" disabled>
+                    <span class="btn-icon">🌅</span>
+                    <span class="btn-text">出勤</span>
+                </button>
+                <button class="btn btn-checkout" id="checkoutBtn" disabled>
+                    <span class="btn-icon">🌙</span>
+                    <span class="btn-text">退勤</span>
+                </button>
+            </div>
+
+            <div class="today-record" id="todayRecord" style="display: none;">
+                <h3>本日の記録</h3>
+                <div class="record-item">
+                    <span>出勤時刻:</span>
+                    <strong id="checkinTime">--:--</strong>
+                </div>
+                <div class="record-item">
+                    <span>退勤時刻:</span>
+                    <strong id="checkoutTime">--:--</strong>
+                </div>
+                <div class="record-item">
+                    <span>勤務時間:</span>
+                    <strong id="workTime">--</strong>
+                </div>
+            </div>
+
+            <div class="complete-section">
+                <button class="btn btn-complete" id="completeBtn">
+                    <span class="btn-icon">🎉</span>
+                    <span class="btn-text">課題完了報告</span>
+                </button>
+                <p class="complete-note">※課題完了時に押してください</p>
+            </div>
+        </main>
+
+        <footer>
+            <p class="version">v1.0.0</p>
+        </footer>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>処理中...</p>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アイコン生成</title>
+</head>
+<body>
+    <h1>PWAアイコン生成</h1>
+    <p>ブラウザで開いて、右クリックで画像を保存してください</p>
+
+    <h2>192x192</h2>
+    <canvas id="canvas192" width="192" height="192"></canvas>
+
+    <h2>512x512</h2>
+    <canvas id="canvas512" width="512" height="512"></canvas>
+
+    <script>
+        function createIcon(canvas) {
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+
+            // グラデーション背景
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+
+            // 時計の絵文字を描画
+            ctx.font = `${size * 0.5}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🕐', size / 2, size / 2);
+        }
+
+        // アイコン生成
+        createIcon(document.getElementById('canvas192'));
+        createIcon(document.getElementById('canvas512'));
+
+        // 画像をダウンロードするボタンを追加
+        const button192 = document.createElement('button');
+        button192.textContent = 'icon-192.pngをダウンロード';
+        button192.onclick = () => {
+            const canvas = document.getElementById('canvas192');
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'icon-192.png';
+                a.click();
+            });
+        };
+        document.body.appendChild(button192);
+
+        const button512 = document.createElement('button');
+        button512.textContent = 'icon-512.pngをダウンロード';
+        button512.onclick = () => {
+            const canvas = document.getElementById('canvas512');
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'icon-512.png';
+                a.click();
+            });
+        };
+        document.body.appendChild(button512);
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+        button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</body>
+</html>
