@@ -25,6 +25,18 @@ const CONFIG = {
 };
 
 /**
+ * OPTIONSリクエスト処理（プリフライト対応）
+ */
+function doOptions(e) {
+  return ContentService
+    .createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT)
+    .setHeader('Access-Control-Allow-Origin', '*')
+    .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    .setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
+/**
  * GETリクエスト処理
  */
 function doGet(e) {
@@ -365,7 +377,7 @@ function initializeSheet(sheet, sheetName) {
 }
 
 /**
- * JSON レスポンス作成
+ * JSON レスポンス作成（CORS対応）
  */
 function createJsonResponse(success, message, data = {}) {
   const response = {
@@ -376,7 +388,10 @@ function createJsonResponse(success, message, data = {}) {
 
   return ContentService
     .createTextOutput(JSON.stringify(response))
-    .setMimeType(ContentService.MimeType.JSON);
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeader('Access-Control-Allow-Origin', '*')
+    .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    .setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
 /**

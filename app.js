@@ -151,6 +151,7 @@ elements.checkinBtn.addEventListener('click', async () => {
 
         const response = await fetch(CONFIG.GAS_URL, {
             method: 'POST',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -186,6 +187,7 @@ elements.checkoutBtn.addEventListener('click', async () => {
 
         const response = await fetch(CONFIG.GAS_URL, {
             method: 'POST',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -221,6 +223,7 @@ elements.completeBtn.addEventListener('click', async () => {
 
         const response = await fetch(CONFIG.GAS_URL, {
             method: 'POST',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
             },
