@@ -3,7 +3,7 @@ const CONFIG = {
     // GASのウェブアプリURLをここに設定してください
     GAS_URL: 'YOUR_GAS_WEB_APP_URL_HERE',
     USER_ID: 'user01',
-    APP_URL: 'https://YOUR_GITHUB_USERNAME.github.io/attendance-app'
+    APP_URL: 'https://kawase-syun.github.io/-APP/'
 };
 
 // グローバル状態
